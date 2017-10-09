@@ -27,8 +27,7 @@ public class ServiceBookTest {
 	public void before() throws NamingException{ 
 		  EJBContainer  ejbContainer = TestEjbHelper.getEjbContainer();
 		  ejbContainer.getContext().bind("inject", this);	
-		  service.deleteAll();
-		  
+		  service.deleteAll();		  
 		  //ejbContainer.getContext().lookup("java:/gobla/app-book/BookService")
 	}
 	
@@ -60,15 +59,57 @@ public class ServiceBookTest {
 			service.add(book); 
 		listBlue = getMockBook("Blue", "Author blue", 2);  
 		for (Book book : listBlue)
+			service.add(book); 				
+		List<Book> results = service.getBookByTitle("Blue 0");  		
+		Assert.assertEquals(2,results.size()); 	
+	}
+	
+	
+	
+	
+	
+	@Test
+	public void deleteBook(){
+		ArrayList<Book> listBlue = getMockBook("Blue", "Author blue", 2);  
+		for (Book book : listBlue)
 			service.add(book); 
-				
-		List<Book> results = service.getBookByTitle("Blue 0");  
 		
-		Assert.assertEquals(2,results.size()); 
+		int id = listBlue.get(0).getId(); 
+		
+		service.remove(String.valueOf(id)); 
+		
+		List<Book> results = service.getAll();  	
+		Assert.assertEquals(1,results.size()); 
 		
 	}
 	
 
+	@Test
+	public void updateBook(){
+		ArrayList<Book> listBlue = getMockBook("Blue", "Author blue", 1);  
+		Book book = listBlue.get(0);
+		service.add(book); 
+		
+		//int id = listBlue.get(0).getId(); 
+		
+		Book bookEdited = new Book(); 
+		bookEdited.setId(book.getId());
+		
+		bookEdited.setTitle("Title edited"); 
+		bookEdited.setDescription("Description Edited"); 
+		bookEdited.setAuthor(null); 
+		
+		
+		service.update(bookEdited);
+		
+		
+		Book results = service.find(String.valueOf(book.getId()));  
+		  	
+		Assert.assertEquals("Title edited",results.getTitle()); 
+		Assert.assertEquals("Description Edited",results.getDescription());
+		Assert.assertEquals("Author blue",results.getAuthor());
+		
+	}
 	
 
 	

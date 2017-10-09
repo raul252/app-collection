@@ -43,9 +43,40 @@ public class BookService {
 	}
 	  
 	  
+    public Book find(String bookId){
+    	int id = Integer.valueOf(bookId); 
+    	Book book= entityManager.find(Book.class,id); 
+    	return book;  
+    }
+	  
     public void add(Book book){
       entityManager.persist(book);
     }
+    
+    public void remove(String bookId){
+    	int id = Integer.valueOf(bookId); 
+    	Book book= entityManager.find(Book.class,id); 
+        entityManager.remove(book); 
+    }
+    
+    public void update(Book book) {
+    	
+    	 //entityManager.getTransaction().begin();
+    	   Book bookOld= entityManager.find(Book.class,book.getId());
+    	   
+    	   if(book.getAuthor()!=null&& !book.getAuthor().equals("")){
+    		  bookOld.setAuthor(book.getAuthor()); 
+    	   }    	   
+    	   if(book.getTitle()!=null&& !book.getTitle().equals("")){
+     		  bookOld.setTitle(book.getTitle()); 
+     	   }    	   
+    	   if(book.getDescription()!=null&& !book.getDescription().equals("")){
+      		  bookOld.setDescription(book.getDescription()); 
+      	   }
+    	   
+    	 //  entityManager.getTransaction().commit();  
+		
+	}
     
     
     
@@ -66,6 +97,9 @@ public class BookService {
 		return entityManager.createNamedQuery(Book.QUERY_BOOK_BY_TITLE) 
     			.setParameter("title",title).getResultList(); 
 	}
+
+
+	
     
     
     
