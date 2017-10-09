@@ -32,4 +32,32 @@
   </servlet-mapping>
   
   
+    <!--  Image form  -->
+  <servlet>
+    <servlet-name>ServletEditImage</servlet-name>
+    <servlet-class>com.book.app.servlet.ServletEditImage</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ServletEditImage</servlet-name>
+    <url-pattern>/servlet/image</url-pattern>
+  </servlet-mapping>
+  
+  
+      <!--  Image Server form  -->
+  <servlet>
+    <servlet-name>ServletServerImages</servlet-name>
+    <servlet-class>com.book.app.servlet.ServletServerImages</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ServletServerImages</servlet-name>
+    <url-pattern>/server/image/*</url-pattern>
+    
+  </servlet-mapping>
+  
+  
+  
 </web-app>

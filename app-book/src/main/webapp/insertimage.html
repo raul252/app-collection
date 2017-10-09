@@ -11,10 +11,10 @@
         
         <p id="p_info">Seleccione una imagen de 640x480 formato jpg, y menor que 20KB</p>
               
-        <form id="form_image" action="./servlet/image?option=insert" method="Post">        
-		  <input id="imput_file_image" type="file" name="imageFile" value="Escojer Imagen"  accept=".jpg, .png" onchange="return validateAndSubmit()">		  
+        <form id="form_image" action="./servlet/image?option=insert" method="Post"  enctype="multipart/form-data">        
+		  <input id="imput_file_image" type="file" name="imagefile" value="Escojer Imagen"  accept=".jpg, .png" onchange="return validateAndSubmit()">		  
 		  <br><br>		  
-		  <input id="button_validate" type="button" value="Subir image" disabled>		  
+		  <input id="button_validate" type="submit" value="Subir image" disabled>		  
 		</form> 
         
         <p> <a href=./index.html> Menu   </a></p> 
