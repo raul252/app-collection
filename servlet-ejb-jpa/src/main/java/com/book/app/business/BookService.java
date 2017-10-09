@@ -14,7 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.example.jpa;
+package com.book.app.business;
 
 import java.util.List;
 
@@ -36,27 +36,34 @@ public class BookService {
 	@PersistenceContext(unitName = "persistence-unit" )
     private EntityManager entityManager;
 	
-	@Resource(name = "dataSourcesLocal")
-	private DataSource dataSource;
 
 	
-	//@Resource(name="HSQLDB Database") DataSource ds; 
-
-	
-    public void addBook(Book book){
+	public void deleteAll(){
+		entityManager.createQuery("DELETE FROM Book").executeUpdate();		
+	}
+	  
+	  
+    public void add(Book book){
       entityManager.persist(book);
     }
     
+    public List<Book> getAll(){
+     return null; 
+    }
     
-    public String  getTitleTest(){
-    	return "books" + System.currentTimeMillis(); 
+    
+    @SuppressWarnings("unchecked")
+	public List<Book> getBookByAuthor(String author){
+    	return entityManager.createNamedQuery(Book.QUERY_BOOK_BY_AUTHOR) 
+    			.setParameter("author",author).getResultList(); 
     }
 
-    public List<Book> getAllBooks(){
-        CriteriaQuery<Book> cq = entityManager.getCriteriaBuilder().createQuery(Book.class);
-        cq.select(cq.from(Book.class));
-        return entityManager.createQuery(cq).getResultList();
-    }
+
+	@SuppressWarnings("unchecked")
+	public List<Book> getBookByTitle(String title) {
+		return entityManager.createNamedQuery(Book.QUERY_BOOK_BY_TITLE) 
+    			.setParameter("title",title).getResultList(); 
+	}
     
     
     

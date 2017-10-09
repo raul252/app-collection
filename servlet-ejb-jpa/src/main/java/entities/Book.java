@@ -19,11 +19,52 @@ package entities;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name=Book.QUERY_BOOK_BY_AUTHOR,
+				query = "SELECT b FROM Book b WHERE b.author =:author"),
+	
+	@NamedQuery(name=Book.QUERY_BOOK_BY_TITLE,
+		query = "SELECT b FROM Book b WHERE b.title =:title")
+
+})
+
+
 public class Book {  
+	
+	public static final String  QUERY_BOOK_BY_AUTHOR="findByAuthor"; 
+	public static final String  QUERY_BOOK_BY_TITLE="findByTitle"; 
+	
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
-    private String bookTitle;
+	private String author; 
+    private String description; 
+    private String title;
+    
+    
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
     public int getBookId() {
         return bookId;
@@ -33,19 +74,12 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    public void setBookTitle(String bookName) {
-        this.bookTitle = bookName;
-    }
 
     @Override
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
-                ", bookTitle='" + bookTitle + '\'' +
+                ", bookTitle='" + title + '\'' +
                 '}';
     }
 }

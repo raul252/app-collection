@@ -7,7 +7,7 @@
   <display-name>Simple Servlet Application</display-name>
   <servlet>
     <servlet-name>ServletBook</servlet-name>
-    <servlet-class>com.example.jpa.ServletBook</servlet-class>
+    <servlet-class>com.book.app.servlet.ServletBook</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   
