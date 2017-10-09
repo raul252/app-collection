@@ -47,17 +47,19 @@ public class BookService {
       entityManager.persist(book);
     }
     
-    public List<Book> getAll(){
-     return null; 
-    }
     
+    
+    @SuppressWarnings("unchecked")
+	public List<Book> getAll(){
+     return entityManager
+    		 .createQuery("SELECT b FROM Book b").getResultList(); 
+    }
     
     @SuppressWarnings("unchecked")
 	public List<Book> getBookByAuthor(String author){
     	return entityManager.createNamedQuery(Book.QUERY_BOOK_BY_AUTHOR) 
     			.setParameter("author",author).getResultList(); 
     }
-
 
 	@SuppressWarnings("unchecked")
 	public List<Book> getBookByTitle(String title) {

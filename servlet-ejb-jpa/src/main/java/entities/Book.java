@@ -66,7 +66,7 @@ public class Book {
 		this.description = description;
 	}
 
-    public int getBookId() {
+    public int getId() {
         return bookId;
     }
 
