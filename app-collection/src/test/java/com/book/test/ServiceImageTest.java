@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.book.app.business.ImageService;
+import com.book.test.tools.TestEjbHelper;
 
 import entities.Image;
 

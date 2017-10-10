@@ -28,13 +28,10 @@ public class AppServices implements InfAppServices  {
 		 if(user==null || user.getEmail()==null){
 			 throw new IllegalArgumentException("> "
 			 		+ "El parametro User no debe ser null y debe tener un email valido "); 
-		 }
-		
+		 }		
 		 //TODO verificar formato correo 
-
 		List<User> list = entityManager.createNamedQuery(User.QUERY_USER_BY_EMAIL) 
-    			.setParameter("email",user.getEmail()).getResultList(); 
-		
+    			.setParameter("email",user.getEmail()).getResultList(); 		
 		if(list!=null && list.size()>0){
 			throw new EntityExistsException("El User tiene un email que esta registrado"); 
 		}
@@ -47,10 +44,8 @@ public class AppServices implements InfAppServices  {
 	public User signInUser(@NotNull String email) { 
 		
 		List<User> list = entityManager.createNamedQuery(User.QUERY_USER_BY_EMAIL) 
-    			.setParameter("email",email).getResultList(); 
-		 
-		//TODO verificar formato correo 
-		
+    			.setParameter("email",email).getResultList(); 		 
+		//TODO verificar formato correo 		
 		if(list==null || list.size()!=1){
 			throw new EntityNotFoundException(""
 					+ "No se encuentra un usuario con el email: " + email); 
@@ -77,18 +72,16 @@ public class AppServices implements InfAppServices  {
 		
 		entityManager.persist(collection); 
 		collection.setUser(user); 
-		user.getCollections().add(collection);
-		
+		user.getCollections().add(collection);		
 	}
 
+
 	@Override
-	public void removeCollection(String collectionId) {
+	public void addItem(String collectionId, Item item, byte[] bytes) {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
+	
 	@Override
 	public void addImage(String itemId, Image image) {
 		// TODO Auto-generated method stub
@@ -102,23 +95,32 @@ public class AppServices implements InfAppServices  {
 	}
 
 	@Override
+	public <T> void remove(Class<T> clazz, Object id) {
+	     T  entity=	entityManager.find(clazz,id);
+	     if(entity!=null)
+	    	 entityManager.remove(entity); 
+	}
+	
+	
+	@Override
+	public void removeCollection(String collectionId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public void removeItem(String itemId) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/** Services intented only for test  */
 
 	@Override
 	public <T> T find(Class<T> clazz, Object id) {		
 		return entityManager.find(clazz, id); 
 	}
 	
-	@Override
-	public  void  remove(Object entity) {		
-		entityManager.remove(entity); 
-	}
-
-
 	@Override
 	public <T> List<T> getAll(Class<T> clazz) {
 		String clasName = clazz.getSimpleName(); 
@@ -127,6 +129,9 @@ public class AppServices implements InfAppServices  {
 	}
 
 
+	/**
+	 * Remove all objets by use { @code entityManager.createQuery("DELETE FROM " +clasName) }
+	 */
 	@Override
 	public <T> void deleteAll(Class<T> clazz) {
 		String clasName = clazz.getSimpleName(); 
@@ -134,10 +139,16 @@ public class AppServices implements InfAppServices  {
 	}
 
 
+	/**
+	 * Remove all objets by user  { @code entityManager.remove(t); }
+	 */
 	@Override
-	public void addItem(String collectionId, Item item, byte[] bytes) {
-		// TODO Auto-generated method stub
-		
+	public <T> void removeAll(Class<T> clazz) {
+		List<T> list = getAll(clazz);  
+		//Cada elemento de la lista esta managed dado que se recupero con query
+		for (T t : list) {
+			entityManager.remove(t); 
+		}		
 	}
 	
 

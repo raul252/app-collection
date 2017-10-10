@@ -1,4 +1,4 @@
-package com.book.test;
+package com.book.test.tools;
 
 import java.util.Properties;
 

@@ -17,21 +17,18 @@ import org.junit.Test;
 import com.book.app.business.AppServices;
 import com.book.app.business.ImageService;
 import com.book.app.business.InfAppServices;
+import com.book.test.tools.MockHelper;
+import com.book.test.tools.TestEjbHelper;
 
 import entities.User;
 
 public class UserServicesTest {
 	
 	
-	
-	private static final String TEST_USER_EMAIL = "qbit.player@gmail.com";
-	
 	@Inject
 	private InfAppServices service; 
  
-	/*@EJB
-	private AppServices ejbServices;*/
-	
+
 
    @Before
     public void before() throws NamingException{   
@@ -39,20 +36,12 @@ public class UserServicesTest {
     	 ejbContainer.getContext().bind("inject", this);    	
     	 service.deleteAll(User.class);	
     }
-   
-   
-     /*@Test
-     public void injectTest(){
-    	 Assert.assertNotNull(service); 
-     }*/
-     
+        
      
      @Test
      public void  signUpTestOK(){
     	 
-    	 User user = new User(); 
-    	 user.setName("Q bit player"); 
-    	 user.setEmail(TEST_USER_EMAIL);     	 
+    	 User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
     	 service.signUpUser(user);     	   	 
     	  List<User> list = service.getAll(User.class);  
     	  Assert.assertEquals(1, list.size());         
@@ -64,14 +53,12 @@ public class UserServicesTest {
      public void  signUpTestAlreadyRegistered() throws Exception{
     	 
     	 try{
-    	 User user = new User(); 
-    	 user.setName("Q bit player"); 
-    	 user.setEmail(TEST_USER_EMAIL);     	 
+		 User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
     	 service.signUpUser(user); 
     	  	 
     	 User user2 = new User(); 
     	 user2.setName("Clone user"); 
-    	 user2.setEmail(TEST_USER_EMAIL);  
+    	 user2.setEmail(MockHelper.TEST_USER_EMAIL);  
     	 service.signUpUser(user2);
     	 }catch (EJBException e) {
     		 Exception caused = e.getCausedByException(); 
@@ -84,9 +71,7 @@ public class UserServicesTest {
      public void  signUpTestBadEmail() throws Exception{
     	 
     	 try{
-    	 User user = new User(); 
-    	 user.setName("Q bit player"); 
-    	 user.setEmail(null);     	 
+    	 User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
     	 service.signUpUser(user); 
     
     	 }catch (EJBException e) {
@@ -100,9 +85,7 @@ public class UserServicesTest {
      @Test
      public void  signInTestOK(){
     	 
-    	 User user = new User(); 
-    	 user.setName("Q bit player"); 
-    	 user.setEmail(TEST_USER_EMAIL);     	 
+    	 User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);
     	 service.signUpUser(user);    
     	 
     	 

@@ -33,11 +33,11 @@ public interface InfAppServices {
 	/* for test */ 
 	
 	public  <T> T find(Class< T> clazz,Object id); 
-	public void remove(Object entity);
+	public <T> void remove(Class<T> clazz, Object id); 
 	
 	public <T> List<T> getAll(Class<T> clazz);  
 	public <T> void deleteAll(Class<T> clazz); 
-	
+	public <T> void removeAll(Class<T> clazz); 
 	
 	
 }

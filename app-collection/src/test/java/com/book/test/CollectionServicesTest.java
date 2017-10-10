@@ -18,6 +18,8 @@ import org.junit.Test;
 import com.book.app.business.AppServices;
 import com.book.app.business.ImageService;
 import com.book.app.business.InfAppServices;
+import com.book.test.tools.MockHelper;
+import com.book.test.tools.TestEjbHelper;
 
 import entities.Collection;
 import entities.User;
@@ -40,26 +42,17 @@ public class CollectionServicesTest {
     	EJBContainer ejbContainer = TestEjbHelper.getEjbContainer();  	
     	 ejbContainer.getContext().bind("inject", this); 
     	
-    	 removeAllUser(); 
+ 
     }
    
    
   
 
-
-	/*@Test
-     public void injectTest(){
-    	 Assert.assertNotNull(service); 
-     }*/
-     
-     
      @Test
      public void  addCollection(){
-    	  User user = mockSingUpUSer();  
+    	  User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
     	
-    	  Collection collection = new Collection();
-    	  collection.setDescription("Esta es una coleccion de test"); 
-    	  collection.setName("Test coleccion"); 
+    	  Collection collection = MockHelper.mockCollection("Collection test"); 
     	 
 		  service.addCollection(user.getId(),collection); 
 		  
@@ -75,30 +68,8 @@ public class CollectionServicesTest {
      }
      
      
-     
-     
-     
-     
-     
-     
-     private User mockSingUpUSer(){
-    	 User user = new User();
-    	 user.setName("Test user"); 
-    	 user.setEmail(TEST_USER_EMAIL);     	 
-    	 service.signUpUser(user);
-    	 return user; 
-     }
-     
-     
-     private void removeAllUser() { 	
-    	 
-    	 List<Collection> listCollection = service.getAll(Collection.class);
-    	 	service.deleteAll(Collection.class); 
-    	 
-    	 List<User> listUser = service.getAll(User.class);  
-    	 	service.deleteAll(User.class); 
-    		
- 	}
+
+
      
 
 }

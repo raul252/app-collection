@@ -35,7 +35,7 @@ public class Collection {
 	 
 	 
 	
-	 @ManyToOne(optional=false, cascade={CascadeType.PERSIST} )
+	 @ManyToOne(cascade={CascadeType.PERSIST} )
 	 @JoinColumn(name="user_id")
 	 private User user;
 

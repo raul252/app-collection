@@ -28,7 +28,6 @@ import javax.persistence.*;
  */
 
 @Entity
-
 public class Image {
 	
 	
@@ -67,9 +66,6 @@ public class Image {
 		this.url = url;
 	}
 
-	
-
-  
 
 }
 
