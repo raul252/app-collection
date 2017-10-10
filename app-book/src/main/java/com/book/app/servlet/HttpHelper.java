@@ -2,24 +2,24 @@ package com.book.app.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 
-import entities.Book;
+import entities.Item;
 
 public class HttpHelper {
 
 	
-	public static Book getParameterBook(HttpServletRequest request) { 
+	/*public static Item getParameterBook(HttpServletRequest request) { 
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
 		String desc = request.getParameter("description");
 		String bookId = request.getParameter("bookId");
 		
-		Book book = new Book(); 
-		book.setId(bookId!=null?Integer.valueOf(bookId):0);  
+		Item book = new Item(); 
+		book.setId(bookId);  
 		book.setAuthor(author);
 		book.setTitle(title);
 		book.setDescription(desc);		
 		return book; 
-	}
+	}*/
 	
 	public static String getStyleTable(){
 		return "<style>" 

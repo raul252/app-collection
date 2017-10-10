@@ -27,9 +27,10 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import org.apache.openejb.jee.DataSource;
 
-import entities.Book;
+import entities.Item;
 
 
+@Deprecated
 @Stateless
 public class BookService {
 	
@@ -43,26 +44,26 @@ public class BookService {
 	}
 	  
 	  
-    public Book find(String bookId){
+    public Item find(String bookId){
     	int id = Integer.valueOf(bookId); 
-    	Book book= entityManager.find(Book.class,id); 
+    	Item book= entityManager.find(Item.class,id); 
     	return book;  
     }
 	  
-    public void add(Book book){
+    public void add(Item book){
       entityManager.persist(book);
     }
     
     public void remove(String bookId){
     	int id = Integer.valueOf(bookId); 
-    	Book book= entityManager.find(Book.class,id); 
+    	Item book= entityManager.find(Item.class,id); 
         entityManager.remove(book); 
     }
     
-    public void update(Book book) {
+    public void update(Item book) {
     	
     	 //entityManager.getTransaction().begin();
-    	   Book bookOld= entityManager.find(Book.class,book.getId());
+    	   Item bookOld= entityManager.find(Item.class,book.getId());
     	   
     	   if(book.getAuthor()!=null&& !book.getAuthor().equals("")){
     		  bookOld.setAuthor(book.getAuthor()); 
@@ -80,26 +81,7 @@ public class BookService {
     
     
     
-    @SuppressWarnings("unchecked")
-	public List<Book> getAll(){
-     return entityManager
-    		 .createQuery("SELECT b FROM Book b").getResultList(); 
-    }
-    
-    @SuppressWarnings("unchecked")
-	public List<Book> getBookByAuthor(String author){
-    	return entityManager.createNamedQuery(Book.QUERY_BOOK_BY_AUTHOR) 
-    			.setParameter("author",author).getResultList(); 
-    }
 
-	@SuppressWarnings("unchecked")
-	public List<Book> getBookByTitle(String title) {
-		return entityManager.createNamedQuery(Book.QUERY_BOOK_BY_TITLE) 
-    			.setParameter("title",title).getResultList(); 
-	}
-
-
-	
     
     
     

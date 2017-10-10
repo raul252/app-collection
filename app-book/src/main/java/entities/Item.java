@@ -18,28 +18,26 @@ package entities;
 
 import javax.persistence.*;
 
-@Entity
-@NamedQueries({
-	@NamedQuery(name=Book.QUERY_BOOK_BY_AUTHOR,
-				query = "SELECT b FROM Book b WHERE b.author =:author"),
-	
-	@NamedQuery(name=Book.QUERY_BOOK_BY_TITLE,
-		query = "SELECT b FROM Book b WHERE b.title =:title")
-
-})
-
-
-public class Book {  
-	
-	public static final String  QUERY_BOOK_BY_AUTHOR="findByAuthor"; 
-	public static final String  QUERY_BOOK_BY_TITLE="findByTitle"; 
+@Entity 
+public class Item {  
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String bookId;
 	private String author; 
     private String description; 
     private String title;
+    
+    
+    
+    @ManyToOne
+    Collection collection; 
+    
+  
+    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE},
+			optional=false)
+    Image image; 
+    
     
     
     public String getTitle() {
@@ -66,15 +64,11 @@ public class Book {
 		this.description = description;
 	}
 
-    public int getId() {
+    public String getId() { 
         return bookId;
     }
 
-    public void setId(int bookId) {
-        this.bookId = bookId;
-    }
-
-
+  
     @Override
     public String toString() {
         return "Book{" +

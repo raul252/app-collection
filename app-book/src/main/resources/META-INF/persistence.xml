@@ -8,7 +8,7 @@
       <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>  
       <jta-data-source>java:openejb/Resource/dataSourcesLocal</jta-data-source> 
                    
-         <class>entities.Book</class>
+         <class>entities.Item</class>
                   
 		 <properties>
           <property name="eclipselink.target-server" value="org.eclipse.persistence.transaction.JTATransactionController"/>

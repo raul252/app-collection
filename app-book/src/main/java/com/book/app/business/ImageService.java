@@ -20,7 +20,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entities.Book;
+import entities.Item;
 import entities.Image;
 
 
@@ -59,8 +59,10 @@ public class ImageService {
 	    	url = url.replace(".jpg", "");    	
 	    	int id = Integer.valueOf(url);  	
 	    	image =  entityManager.find(Image.class,id);
+	    	
 	    	/** Hay que leer los bytes porque se declaro como LAZY */
 	    	image.getBytes(); 
+	    	
     	}catch(Exception e){
     		
     	}
@@ -68,11 +70,11 @@ public class ImageService {
     	return image; 
     }
     
-    public void remove(Book book){
+    public void remove(Item book){
     	entityManager.remove(book); 
     }
     
-    public void update(Book book){
+    public void update(Item book){
     	entityManager.merge(book); 
     }
     
