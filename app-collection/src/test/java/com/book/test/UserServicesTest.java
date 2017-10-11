@@ -34,7 +34,7 @@ public class UserServicesTest {
     public void before() throws NamingException{   
     	EJBContainer ejbContainer = TestEjbHelper.getEjbContainer();  	
     	 ejbContainer.getContext().bind("inject", this);    	
-    	 service.deleteAll(User.class);	
+    	 service.removeAll(User.class);	
     }
         
      
@@ -71,7 +71,8 @@ public class UserServicesTest {
      public void  signUpTestBadEmail() throws Exception{
     	 
     	 try{
-    	 User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
+    	 User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);  
+    	 user.setEmail(null); 
     	 service.signUpUser(user); 
     
     	 }catch (EJBException e) {

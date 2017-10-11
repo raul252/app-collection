@@ -24,7 +24,10 @@ public class Collection {
 	 private String name; 
 	 private String description;
 	 
-	 // No persistir este miembro
+	
+
+
+	// No persistir este miembro
 	 @Transient
 	 private String size; 
 	 
@@ -35,7 +38,7 @@ public class Collection {
 	 
 	 
 	
-	 @ManyToOne(cascade={CascadeType.PERSIST} )
+	 @ManyToOne(cascade={CascadeType.PERSIST})
 	 @JoinColumn(name="user_id")
 	 private User user;
 
@@ -55,7 +58,7 @@ public class Collection {
 	}
 
 
-	public void setDescription(String description) {
+	public void Description(String description) {
 		this.description = description;
 	}
 
@@ -95,10 +98,13 @@ public class Collection {
 	}
 
 
-	/*public void setUser(User user) {
-		this.user = user;
-	}*/
-	 
+	public void setId(String id) {
+		this.id = id; 
+	}
+
+	 public void setDescription(String description) {
+			this.description = description;
+	}
 	
 	
 	 

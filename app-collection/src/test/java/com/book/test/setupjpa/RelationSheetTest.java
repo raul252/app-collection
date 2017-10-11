@@ -43,7 +43,7 @@ public class RelationSheetTest {
      @Test
      public void  removeChilds(){
     	  
-    	 /* Borrar todo manualmente, asi ganrantiza no basura
+    	 /* Borrar todo manualmente, asi garantiza no basura
     	    Hay formas mas elegantes, pero esto es un test, 
     	    no hay que ser dogmatico y code fundamentalista */
 	    	 service.deleteAll(Image.class);
@@ -98,6 +98,8 @@ public class RelationSheetTest {
 		   *  
 		   * NOTE QUE: el objeto debe estar en estado managed para poder ser removido 
 		   */ 
+		  
+		  //service.deleteAll(User.class); 
 		
 		  service.remove(User.class,resultUser.getId()); 
 
@@ -109,6 +111,8 @@ public class RelationSheetTest {
 		  Assert.assertEquals(0, listUsers.size());
 		  Assert.assertEquals(0, listCollec.size());
 		  	  
+		  
+		  
 		  
      }
      

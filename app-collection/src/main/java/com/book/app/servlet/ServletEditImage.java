@@ -33,6 +33,9 @@ public class ServletEditImage extends HttpServlet {
 			throws ServletException, IOException {
            String messageResponse="";
 		   String option = request.getParameter("option");  
+		   
+		   
+		  
 		   	   
 		   if(option.equals("insert")){			  
 		   		  

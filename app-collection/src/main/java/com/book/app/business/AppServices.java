@@ -1,6 +1,7 @@
 package com.book.app.business;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -74,6 +75,33 @@ public class AppServices implements InfAppServices  {
 		collection.setUser(user); 
 		user.getCollections().add(collection);		
 	}
+	
+	@Override
+	public void removeCollection(String collectionId) {			 
+		 Collection collec = entityManager.find(Collection.class,collectionId);
+		 User user = entityManager.find(User.class,collec.getUser().getId());		 
+		 Set<Collection> list = user.getCollections();  
+		 
+		 for (Collection c : list) {
+			if(list.contains(c)){
+				list.remove(c);
+				break; 
+			}
+		}		 	
+	}
+	
+	
+	@Override
+	public void updateCollection(Collection collection) {
+		 String collectionId = collection.getId();
+		 Collection collectionOld = entityManager.find(Collection.class,collectionId);		 
+		 if(collection.getName()!=null &&  !collection.getName().equals(""))
+			 collectionOld.setName(collection.getName());
+		 if(collection.getDescription()!=null &&  !collection.getDescription().equals(""))
+			 collectionOld.setDescription(collection.getDescription());
+			
+	}
+	
 
 
 	@Override
@@ -94,19 +122,10 @@ public class AppServices implements InfAppServices  {
 		
 	}
 
-	@Override
-	public <T> void remove(Class<T> clazz, Object id) {
-	     T  entity=	entityManager.find(clazz,id);
-	     if(entity!=null)
-	    	 entityManager.remove(entity); 
-	}
+
 	
+
 	
-	@Override
-	public void removeCollection(String collectionId) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public void removeItem(String itemId) {
@@ -115,6 +134,17 @@ public class AppServices implements InfAppServices  {
 	}
 	
 	/** Services intented only for test  */
+	
+	//************************************************************************************
+	
+	@Override
+	public <T> void remove(Class<T> clazz, Object id) {
+	     T  entity=	entityManager.find(clazz,id);
+	     if(entity!=null)
+	    	 entityManager.remove(entity); 
+	}
+	
+	
 
 	@Override
 	public <T> T find(Class<T> clazz, Object id) {		

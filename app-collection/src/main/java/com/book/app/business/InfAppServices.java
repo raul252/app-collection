@@ -22,8 +22,9 @@ public interface InfAppServices {
 	
 	public void addCollection(String userId, Collection collection); //
 	
+
 	public void removeCollection(String collectionId); 
-	
+	public void updateCollection(Collection collection); 
 	
 	public void addItem(String collectionId, Item item,byte[] bytes);
 	public void addImage(String itemId, Image image);	

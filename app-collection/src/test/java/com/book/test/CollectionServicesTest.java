@@ -2,6 +2,7 @@ package com.book.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -42,7 +43,7 @@ public class CollectionServicesTest {
     	EJBContainer ejbContainer = TestEjbHelper.getEjbContainer();  	
     	 ejbContainer.getContext().bind("inject", this); 
     	
- 
+        service.removeAll(User.class); 
     }
    
    
@@ -51,9 +52,9 @@ public class CollectionServicesTest {
      @Test
      public void  addCollection(){
     	  User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
-    	
+    	  service.signUpUser(user); 
+    	  
     	  Collection collection = MockHelper.mockCollection("Collection test"); 
-    	 
 		  service.addCollection(user.getId(),collection); 
 		  
 		  
@@ -62,9 +63,61 @@ public class CollectionServicesTest {
 		  Assert.assertEquals(1, result.getCollections().size()); 
 		  ArrayList<Collection> list =  new ArrayList<>(result.getCollections()); 		  
 		  Assert.assertEquals(collection.getName(),list.get(0).getName() ); 
+     }
+     
+     
+
+     @Test
+     public void  removeCollection(){
+    	  User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
+    	  Collection collection = MockHelper.mockCollection("Collection test");
+    	  user.getCollections().add(collection);  
+    	  collection.setUser(user); 
+    	  
+    	  service.signUpUser(user);
+    	  
+    	  Assert.assertEquals(1,user.getCollections().size());
+    	
+    	  //service.remove(Collection.class,collection.getId()); 
+		  service.removeCollection(collection.getId()); 
 		  
-		 // Assert.assertEquals(collection.
+		  User result = service.find(User.class, user.getId()); 
+		  Assert.assertNotNull(user); 	
+		  Set<Collection> list = result.getCollections();  		  
+		  Assert.assertEquals(0,list.size()); 
 		  
+		  
+		  Collection ressultC = service.find(Collection.class, collection.getId()); 
+		  Assert.assertNull(ressultC); 		  
+		  		
+     }
+     
+     
+     @Test
+     public void  updateCollection(){
+    	  User user = MockHelper.mockUser("User Test",MockHelper.TEST_USER_EMAIL);     	 
+    	  Collection collection = MockHelper.mockCollection("Collection test");
+    	  user.getCollections().add(collection);  
+    	  collection.setUser(user); 
+    	  
+    	  service.signUpUser(user);
+    	  
+    	  
+    	  Collection editedCollection = new Collection(); 
+    	  editedCollection.setId(collection.getId()); 
+    	  editedCollection.setName("Name edited"); 
+    	  editedCollection.setDescription("Description edited"); 
+    	  
+		  service.updateCollection(editedCollection); 
+		  
+		  Collection result  = service.find(Collection.class,
+				  					editedCollection.getId()); 
+    	  
+		  
+		  Assert.assertEquals("Name edited",result.getName());
+		  Assert.assertEquals("Description edited",result.getDescription());
+			  
+		
      }
      
      
