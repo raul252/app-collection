@@ -110,18 +110,5 @@ public class RelationSheetTest {
 		  listCollec = service.getAll(Collection.class); 	  
 		  Assert.assertEquals(0, listUsers.size());
 		  Assert.assertEquals(0, listCollec.size());
-		  	  
-		  
-		  
-		  
      }
-     
-     
-     
-     
-  
-    
-     
-     
-
 }

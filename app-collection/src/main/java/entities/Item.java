@@ -25,12 +25,20 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String bookId;
 	private String author; 
-    private String description; 
+    public Collection getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Collection collection) {
+		this.collection = collection;
+	}
+
+
+	private String description; 
     private String title;
     
     
-    
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST})
     Collection collection; 
     
   
@@ -40,7 +48,15 @@ public class Item {
     
     
     
-    public String getTitle() {
+    public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public String getTitle() {
 		return title;
 	}
 

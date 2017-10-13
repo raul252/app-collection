@@ -83,7 +83,7 @@ public class AppServices implements InfAppServices  {
 		 Set<Collection> list = user.getCollections();  
 		 
 		 for (Collection c : list) {
-			if(list.contains(c)){
+			if(c.equals(collec)){
 				list.remove(c);
 				break; 
 			}
@@ -106,31 +106,79 @@ public class AppServices implements InfAppServices  {
 
 	@Override
 	public void addItem(String collectionId, Item item, byte[] bytes) {
-		// TODO Auto-generated method stub
+		Collection collection = entityManager.find(Collection.class, collectionId); 
+		if(collection==null){
+			throw new EntityNotFoundException(""
+					+ "No se encuentra una colección con este Id: " + collectionId); 
+		}
 		
+		collection.getItems().add(item);
+		item.setCollection(collection);
+		
+		Image im =null;
+		if (bytes !=null) {
+			im = new Image();
+			im.setBytes(bytes);
+			item.setImage(im);
+			entityManager.flush();
+			String url = "image_" + im.getId() + ".jpg";
+			im.setUrl(url); 
+		}
+		
+	
+
 	}
 	
 	@Override
 	public void addImage(String itemId, Image image) {
-		// TODO Auto-generated method stub
+		Item item = entityManager.find(Item.class, itemId); 
+		if(item==null){
+			throw new EntityNotFoundException(""
+					+ "No se encuentra un usuario con el userId: " + itemId); 
+		}
+		item.setImage(image);
+		Image im = new Image();
+		im.setBytes(im.getBytes());
 		
+		entityManager.flush();
+		String url = "image_" + im.getId() + ".jpg";
+		im.setUrl(url); 
+		item.setImage(im);
+		
+		entityManager.persist(image);
 	}
 
 	@Override
 	public void updateItem(Item item, byte[] bytes) {
-		// TODO Auto-generated method stub
+		 String itemId = item.getId();
+		 Item itemOld = entityManager.find(Item.class,itemId);		 
+		 if(item.getAuthor()!=null &&  !item.getAuthor().equals(""))
+			 itemOld.setAuthor(item.getAuthor());
+		 if(item.getTitle()!=null &&  !item.getTitle().equals(""))
+			 itemOld.setTitle(item.getTitle());
+		 if(item.getDescription()!=null &&  !item.getDescription().equals(""))
+			 itemOld.setDescription(item.getDescription());
+	
+		 
+		 if (itemOld.getImage()==null && bytes!=null) {
 		
+			 	Image im = item.getImage();
+				im.setBytes(bytes);
+				item.setImage(im);
+			
+				entityManager.flush();
+				String url = "image_" + im.getId() + ".jpg";
+				im.setUrl(url); 
+		 }else if (itemOld.getImage()!=null && bytes!=null) {
+			 itemOld.getImage().setBytes(bytes);
+		 }
 	}
 
 
-	
-
-	
-	
 	@Override
 	public void removeItem(String itemId) {
-		// TODO Auto-generated method stub
-		
+		 Item item = entityManager.find(Item.class,itemId);
+		 entityManager.remove(item);
 	}
 	
 	/** Services intented only for test  */

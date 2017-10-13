@@ -1,6 +1,7 @@
 package com.book.test.tools;
 
 import entities.Collection;
+import entities.Item;
 import entities.User;
 
 public class MockHelper {
@@ -23,6 +24,12 @@ public class MockHelper {
 		  return collection; 
     }
     
-    
+    public static Item mockItem(String author, String description, String title){
+    	Item item = new Item();
+    	item.setTitle(title);
+    	item.setDescription(description);
+    	item.setAuthor(author);
+    	return item;
+  }
 
 }
