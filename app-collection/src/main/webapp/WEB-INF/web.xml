@@ -15,6 +15,11 @@
     <servlet-class>com.book.app.servlet.ServletEditBook</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+    <servlet>
+    <servlet-name>ServletInsertCollection</servlet-name>
+    <servlet-class>com.book.app.servlet.ServletInsertCollection</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   <servlet-mapping>
     <servlet-name>ServletEditBook</servlet-name>
     <url-pattern>/servlet/edit</url-pattern>
@@ -31,6 +36,16 @@
   <servlet>
     <servlet-name>ServletServerImages</servlet-name>
     <servlet-class>com.book.app.servlet.ServletServerImages</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>ServletMain</servlet-name>
+    <servlet-class>com.book.app.servlet.ServletMain</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>ServletCollection</servlet-name>
+    <servlet-class>com.book.app.servlet.ServletCollection</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

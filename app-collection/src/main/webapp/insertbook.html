@@ -1,28 +1,92 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Adicionar un Libro</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-   <body>
-        <h1>Adicionar un Libro</h1>
-              
-        <form action="./servlet/book?option=insert" method="Post">
-		  Titulo:<br>
-		  <input type="text" name="title" value="">
-		  <br>
-		  Autor:<br>
-		  <input type="text" name="author" value="">
-		  <br>
-		  Descripcion:<br>
-		  <input type="text" name="description" value="">
-		  
-		  <br><br>
-		  <input type="submit" value="Insertar">
-		</form> 
-        
-        <p> <a href=./index.html> Menu   </a></p> 
-        
-                             
-    </body>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    
+     <div class="container">
+        <form class="form-horizontal" enctype="multipart/form-data" name="myform" id="myform" role="form" method="POST" action="./BookService">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h2>Insertar Libro</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="nombre">Titulo</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                            <input type="text" name="titulo" class="form-control" id="titulo" placeholder="Titulo requerido" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="nombre">Autor</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                            <input type="text" name="autor" class="form-control" id="autor" placeholder="Autor requerido" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <label class="sr-only" for="descr">Descripcion</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                            <input type="text" name="descr" class="form-control" id="descr"
+                                   placeholder="Descripcion" required autofocus>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <label class="sr-only" for="descr">Imagen</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <p><input type="file" name="file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 1rem">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Insertar</button>
+                </div>
+            </div>
+          </form>
+         </div>
+  </body>
+<script type="text/javascript" src="/app-book/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/app-book/js/localization/messages_es.min.js"></script>
+<script type="text/javascript">
+$("#myform").validate({
+	  submitHandler: function(form) {
+	    form.submit();
+	  }
+	 });
+</script>
 </html>

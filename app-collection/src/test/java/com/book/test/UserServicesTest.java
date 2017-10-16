@@ -1,5 +1,6 @@
 package com.book.test;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -34,7 +35,7 @@ public class UserServicesTest {
     public void before() throws NamingException{   
     	EJBContainer ejbContainer = TestEjbHelper.getEjbContainer();  	
     	 ejbContainer.getContext().bind("inject", this);    	
-    	 service.removeAll(User.class);	
+    	 service.removeAll(User.class);
     }
         
      
